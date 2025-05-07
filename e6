@@ -1,0 +1,75 @@
+ou should have these Java files:
+
+Node.java – Remote interface
+
+Message.java – Serializable message class
+
+BullyNode.java – Implements Bully algorithm
+
+RingNode.java – Implements Ring algorithm
+
+✅ Compilation Steps
+1. Start RMI Registry (in the background)
+Open one terminal and run:
+
+bash
+Copy
+Edit
+rmiregistry &
+Make sure this stays running in the background.
+
+2. Compile All Files
+In the terminal from your project directory:
+
+bash
+Copy
+Edit
+javac *.java
+▶️ Running the Bully Algorithm
+Each node must know its own ID and the ID of the next node. Example setup for 3 nodes:
+
+Terminal 1
+bash
+Copy
+Edit
+java BullyNode 3 2
+Terminal 2
+bash
+Copy
+Edit
+java BullyNode 2 1
+Terminal 3
+bash
+Copy
+Edit
+java BullyNode 1 0
+You can adjust the IDs and nextNodeId values accordingly.
+Each node will auto-start an election after a delay.
+
+▶️ Running the Ring Election Algorithm
+Same approach, different class.
+
+Terminal 1
+bash
+Copy
+Edit
+java RingNode 3 1
+Terminal 2
+bash
+Copy
+Edit
+java RingNode 1 2
+Terminal 3
+bash
+Copy
+Edit
+java RingNode 2 3
+This forms a ring: 3 ➝ 1 ➝ 2 ➝ 3
+
+💡 Tips
+You must start the RMI registry (rmiregistry) before running the nodes.
+
+nodeId and nextNodeId must match actual node setups. Mismatches will cause lookup() failures.
+
+All nodes should be run from the same directory or make sure CLASSPATH includes current directory (.).
+
