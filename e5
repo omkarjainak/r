@@ -1,0 +1,49 @@
+✅ Steps to Compile and Run
+Start the RMI Registry (in one terminal):
+
+bash
+Copy
+Edit
+rmiregistry &
+Compile all Java files:
+
+bash
+Copy
+Edit
+javac *.java
+Start nodes (in separate terminals)
+
+Let’s assume you have 3 nodes: node1, node2, node3. Each will bind to its own RMI name and know the name of the next.
+
+Start node1 and pass "init" to start the token:
+
+bash
+Copy
+Edit
+java TokenRingNodeImpl node1 //localhost/node2 init
+Start node2:
+
+bash
+Copy
+Edit
+java TokenRingNodeImpl //localhost/node2 //localhost/node3
+Start node3:
+
+bash
+Copy
+Edit
+java TokenRingNodeImpl //localhost/node3 //localhost/node1
+Make sure each node uses different terminal windows and that the rmiregistry is running in the background.
+
+✅ What You Should See
+Each node will register itself and connect to the next.
+
+The token will be passed from one node to another.
+
+Nodes will enter the critical section periodically (every ~5s).
+
+⚠️ Common Issues
+java.rmi.ConnectException: Ensure the RMI registry is running (rmiregistry) and each node uses correct URLs.
+
+Wrong node name/lookup failure: Make sure Naming.lookup() uses full RMI name, like //localhost/node2.
+
